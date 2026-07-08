@@ -16,8 +16,15 @@ namespace StarLocationCorrection
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            
             var model = new TelescopePositionCorrectionModel();
-            Application.Run(new MainForm(model));
+            var mainForm = new MainForm();
+            var mainView = new MainView(mainForm);
+            var mainPresenter = new MainPresenter(model, mainView);
+            
+            mainForm.SetPresenter(mainPresenter);
+            
+            Application.Run(mainForm);
         }
     }
 }

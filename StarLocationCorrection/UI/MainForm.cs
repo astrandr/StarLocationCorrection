@@ -7,13 +7,16 @@ namespace StarLocationCorrection
 {
     public partial class MainForm : Form
     {
-        private readonly MainPresenter mainPresenter;
-        public MainForm(TelescopePositionCorrectionModel model)
+        private MainPresenter mainPresenter;
+
+        public MainForm()
         {
             InitializeComponent();
+        }
 
-            //Initialize presenters
-            mainPresenter = new MainPresenter(model, new MainView(this));
+        public void SetPresenter(MainPresenter presenter)
+        {
+            this.mainPresenter = presenter;
         }
 
         private void btnCalibrate_Click(object sender, System.EventArgs e)
