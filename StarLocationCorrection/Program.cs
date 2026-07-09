@@ -19,7 +19,8 @@ namespace StarLocationCorrection
             
             var model = new TelescopePositionCorrectionModel();
             var mainForm = new MainForm();
-            var mainView = new MainView(mainForm);
+            var messageBoxService = new MessageBoxService();
+            var mainView = new MainView(mainForm, messageBoxService);
             var mainPresenter = new MainPresenter(model, mainView);
             
             mainForm.SetPresenter(mainPresenter);

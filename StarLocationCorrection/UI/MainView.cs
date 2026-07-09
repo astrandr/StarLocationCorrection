@@ -6,38 +6,62 @@ namespace StarLocationCorrection.UI
     public class MainView : IMainView
     {
         private readonly MainForm form;
+        private readonly IMessageBox messageBox;
 
-        public MainView(MainForm form)
+        public MainView(MainForm form, IMessageBox messageBox)
         {
             this.form = form;
+            this.messageBox = messageBox;
         }
 
-        public Position ObjectPosition
+        public bool TryGetObjectPosition(out Position objectPosition)
         {
-            get => new Position
+            AngleHMS RA, DEC;
+
+            try
             {
-                RA = AngleHMS.FromString(form.txtObjectPositionRA.Text),
-                DEC = AngleHMS.FromString(form.txtObjectPositionDEC.Text)
-            };
-            set
+                RA = AngleHMS.FromString(form.txtObjectPositionRA.Text);
+                DEC = AngleHMS.FromString(form.txtObjectPositionDEC.Text);
+                objectPosition = new Position { RA = RA, DEC = DEC };
+                return true;
+            }
+            catch
             {
-                form.txtTelescopePositionRA.Text = value.RA.ToHMSString();
-                form.txtTelescopePositionDEC.Text = value.DEC.ToHMSString();
+                messageBox.ShowError("Invalid object position. Please enter valid RA and DEC values with format 00:00:00");
+                objectPosition = null;
+                return false;
             }
         }
 
-        public Position TelescopePosition
+        public void SetObjectPosition(Position objectPosition)
         {
-            get => new Position
+            form.txtObjectPositionRA.Text = objectPosition.RA.ToHMSString();
+            form.txtObjectPositionDEC.Text = objectPosition.DEC.ToHMSString();
+        }
+
+        public bool TryGetTelescopePosition(out Position telescopePosition)
+        {
+            AngleHMS RA, DEC;
+
+            try
             {
-                RA = AngleHMS.FromString(form.txtTelescopePositionRA.Text),
-                DEC = AngleHMS.FromString(form.txtTelescopePositionDEC.Text)
-            };
-            set
-            {
-                form.txtTelescopePositionRA.Text = value.RA.ToHMSString();
-                form.txtTelescopePositionDEC.Text = value.DEC.ToHMSString();
+                RA = AngleHMS.FromString(form.txtTelescopePositionRA.Text);
+                DEC = AngleHMS.FromString(form.txtTelescopePositionDEC.Text);
+                telescopePosition = new Position { RA = RA, DEC = DEC };
+                return true;
             }
+            catch
+            {
+                messageBox.ShowError("Invalid telescope position. Please enter valid RA and DEC values with format 00:00:00");
+                telescopePosition = null;
+                return false;
+            }
+        }
+
+        public void SetTelescopePosition(Position telescopePosition)
+        {
+            form.txtObjectPositionRA.Text = telescopePosition.RA.ToHMSString();
+            form.txtObjectPositionDEC.Text = telescopePosition.DEC.ToHMSString();
         }
 
         public Position PositionDelta

@@ -5,7 +5,7 @@ using TelescopePosCorrection.Services;
 
 namespace StarLocationCorrection.Presenters
 {
-    public class MainPresenter
+    public class MainPresenter : IMainPresenter
     {
         private readonly TelescopePositionCorrectionModel model;
         private readonly IMainView mainView;
@@ -18,18 +18,24 @@ namespace StarLocationCorrection.Presenters
 
         public void CalculatePositionDelta()
         {
-            model.PositionDeltaRA = CorrectionUtils.GetDelta(mainView.TelescopePosition.RA, mainView.ObjectPosition.RA);
-            model.PositionDeltaDEC = CorrectionUtils.GetDelta(mainView.TelescopePosition.DEC, mainView.ObjectPosition.DEC);
+            if (mainView.TryGetObjectPosition(out Position objectPosition) && mainView.TryGetTelescopePosition(out Position telescopePosition))
+            {
+                model.PositionDeltaRA = CorrectionUtils.GetDelta(telescopePosition.RA, objectPosition.RA);
+                model.PositionDeltaDEC = CorrectionUtils.GetDelta(telescopePosition.DEC, objectPosition.DEC);
 
-            mainView.SetPositionDelta(AngleHMS.FromFloat(model.PositionDeltaRA), AngleHMS.FromFloat(model.PositionDeltaDEC));
+                mainView.SetPositionDelta(AngleHMS.FromFloat(model.PositionDeltaRA), AngleHMS.FromFloat(model.PositionDeltaDEC));
+            }
         }
 
         public void CorrectPosition()
         {
-            var correctedRA = CorrectionUtils.AddDeltaRA(mainView.ObjectPosition.RA, model.PositionDeltaRA);
-            var correctedDEC = CorrectionUtils.AddDeltaDEC(mainView.ObjectPosition.DEC, model.PositionDeltaDEC);
+            if (mainView.TryGetObjectPosition(out Position objectPosition))
+            {
+                var correctedRA = CorrectionUtils.AddDeltaRA(objectPosition.RA, model.PositionDeltaRA);
+                var correctedDEC = CorrectionUtils.AddDeltaDEC(objectPosition.DEC, model.PositionDeltaDEC);
 
-            mainView.TelescopePosition = new Position() { RA = correctedRA, DEC = correctedDEC };
+                mainView.SetTelescopePosition(new Position() { RA = correctedRA, DEC = correctedDEC });
+            }
         }
     }
 }

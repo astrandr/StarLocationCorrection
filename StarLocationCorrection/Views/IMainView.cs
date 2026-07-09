@@ -4,11 +4,14 @@ namespace StarLocationCorrection.Views
 {
     public interface IMainView
     {
-        Position ObjectPosition { get; set; }
-        Position TelescopePosition { get; set; }
-        /// <summary>
-        /// PositionCorrection - delta object position - telescope position
-        /// </summary>
+        bool TryGetObjectPosition(out Position objectPosition);
+
+        void SetObjectPosition(Position objectPosition);
+
+        bool TryGetTelescopePosition(out Position telescopePosition);
+
+        void SetTelescopePosition(Position telescopePosition);
+
         Position PositionDelta { get; set; }
 
         void SetPositionDelta(AngleHMS deltaRA, AngleHMS deltaDEC);

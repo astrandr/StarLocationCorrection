@@ -7,14 +7,14 @@ namespace StarLocationCorrection
 {
     public partial class MainForm : Form
     {
-        private MainPresenter mainPresenter;
+        private IMainPresenter mainPresenter;
 
         public MainForm()
         {
             InitializeComponent();
         }
 
-        public void SetPresenter(MainPresenter presenter)
+        public void SetPresenter(IMainPresenter presenter)
         {
             this.mainPresenter = presenter;
         }

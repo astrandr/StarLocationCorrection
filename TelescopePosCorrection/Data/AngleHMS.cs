@@ -27,11 +27,8 @@ namespace TelescopePosCorrection.Data
             if (H < 0 || M < 0 || S < 0)
             {
                 s = "-";
-                H = Abs(H);
-                M = Abs(M);
-                S = Abs(S);
             }
-            s += string.Format("{0}:{1}:{2}", H.ToString("00"), M.ToString("00"), S.ToString("00"));
+            s += string.Format("{0}:{1}:{2}", Abs(H).ToString("00"), Abs(M).ToString("00"), Abs(S).ToString("00"));
             return s;
         }
 
