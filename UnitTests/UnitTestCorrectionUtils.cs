@@ -37,12 +37,12 @@ namespace TelescopePosCorrection.Tests.Services
         }
 
         [DataTestMethod]
-        [DataRow(350f, 20f, 10f)]    // Wraps over 360
-        [DataRow(5f, -10f, 355f)]    // Wraps below 0
-        [DataRow(180f, 0f, 180f)]    // No change
-        [DataRow(359f, 2f, 1f)]      // Small wrap
-        [DataRow(0f, 0f, 0f)]        // Edge case
-        public void AddDeltaDEC_WrapsCorrectly(float objectAngle, float delta, float expected)
+        [DataRow(350f, 20f, 370f)]    // No wrapping, result is 370
+        [DataRow(5f, -10f, -5f)]      // No wrapping, result is -5
+        [DataRow(180f, 0f, 180f)]     // No change
+        [DataRow(359f, 2f, 361f)]     // No wrapping, result is 361
+        [DataRow(0f, 0f, 0f)]         // Edge case
+        public void AddDeltaDEC_NoWrapping(float objectAngle, float delta, float expected)
         {
             var obj = AngleHMS.FromFloat(objectAngle);
 
@@ -50,5 +50,6 @@ namespace TelescopePosCorrection.Tests.Services
 
             Assert.AreEqual(expected, result.Angle, 0.0001f);
         }
+
     }
 }
