@@ -60,8 +60,8 @@ namespace StarLocationCorrection.UI
 
         public void SetTelescopePosition(Position telescopePosition)
         {
-            form.txtObjectPositionRA.Text = telescopePosition.RA.ToHMSString();
-            form.txtObjectPositionDEC.Text = telescopePosition.DEC.ToHMSString();
+            form.txtTelescopePositionRA.Text = telescopePosition.RA.ToHMSString();
+            form.txtTelescopePositionDEC.Text = telescopePosition.DEC.ToHMSString();
         }
 
         public Position PositionDelta

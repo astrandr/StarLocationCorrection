@@ -2,7 +2,7 @@
 
 namespace TelescopePosCorrection.Services
 {
-    public class CorrectionUtils
+    public static class CorrectionUtils
     {
         public static float GetDelta(AngleHMS telescopePosition, AngleHMS objectPosition)
         {
