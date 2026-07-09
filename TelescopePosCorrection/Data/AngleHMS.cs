@@ -2,22 +2,31 @@
 
 namespace TelescopePosCorrection.Data
 {
-    public struct AngleHMS
+    public class AngleHMS
     {
         public float H { get; set; }
         public float M { get; set; }
         public float S { get; set; }
         public float Angle => H * 15 + M * 0.25f + S * 0.25f / 60;
 
-        public static AngleHMS FromString(string angleHMS)
+        public static bool TryParse(string angleHMS, out AngleHMS angle)
         {
+            angle = null;
+
             var tokens = angleHMS.Split(new char[] { ':' }, System.StringSplitOptions.RemoveEmptyEntries);
-            return new AngleHMS
+
+            if (float.TryParse(tokens[0], out float h) && float.TryParse(tokens[1], out float m) && float.TryParse(tokens[2], out float s))
             {
-                H = float.Parse(tokens[0]),
-                M = float.Parse(tokens[1]),
-                S = float.Parse(tokens[2])
-            };
+                angle = new AngleHMS
+                {
+                    H = h,
+                    M = m,
+                    S = s
+                };
+                return true;
+            }
+
+            return false;
         }
 
 

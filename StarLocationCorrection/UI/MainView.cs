@@ -16,16 +16,12 @@ namespace StarLocationCorrection.UI
 
         public bool TryGetObjectPosition(out Position objectPosition)
         {
-            AngleHMS RA, DEC;
-
-            try
-            {
-                RA = AngleHMS.FromString(form.txtObjectPositionRA.Text);
-                DEC = AngleHMS.FromString(form.txtObjectPositionDEC.Text);
-                objectPosition = new Position { RA = RA, DEC = DEC };
+            if(AngleHMS.TryParse(form.txtObjectPositionRA.Text, out AngleHMS ra) && AngleHMS.TryParse(form.txtObjectPositionDEC.Text, out AngleHMS dec))
+            { 
+                objectPosition = new Position { RA = ra, DEC = dec };
                 return true;
             }
-            catch
+            else
             {
                 messageBox.ShowError("Invalid object position. Please enter valid RA and DEC values with format 00:00:00");
                 objectPosition = null;
@@ -41,16 +37,12 @@ namespace StarLocationCorrection.UI
 
         public bool TryGetTelescopePosition(out Position telescopePosition)
         {
-            AngleHMS RA, DEC;
-
-            try
+            if (AngleHMS.TryParse(form.txtTelescopePositionRA.Text, out AngleHMS ra) && AngleHMS.TryParse(form.txtTelescopePositionDEC.Text, out AngleHMS dec))
             {
-                RA = AngleHMS.FromString(form.txtTelescopePositionRA.Text);
-                DEC = AngleHMS.FromString(form.txtTelescopePositionDEC.Text);
-                telescopePosition = new Position { RA = RA, DEC = DEC };
+                telescopePosition = new Position { RA = ra, DEC = dec };
                 return true;
             }
-            catch
+            else
             {
                 messageBox.ShowError("Invalid telescope position. Please enter valid RA and DEC values with format 00:00:00");
                 telescopePosition = null;
@@ -66,11 +58,19 @@ namespace StarLocationCorrection.UI
 
         public Position PositionDelta
         {
-            get => new Position
+            get
             {
-                RA = AngleHMS.FromString(form.txtDeltaPositionRA.Text),
-                DEC = AngleHMS.FromString(form.txtDeltaPositionDEC.Text)
-            };
+                if (AngleHMS.TryParse(form.txtDeltaPositionRA.Text, out AngleHMS ra) && AngleHMS.TryParse(form.txtDeltaPositionDEC.Text, out AngleHMS dec))
+                {
+                    return new Position { RA = ra, DEC = dec };
+                }
+                else
+                {
+                    messageBox.ShowError("Invalid delta values. Please enter valid RA and DEC values with format 00:00:00");
+                    return null;
+                }
+            }
+
             set
             {
                 form.txtDeltaPositionRA.Text = value.RA.ToHMSString();

@@ -13,12 +13,15 @@ namespace TelescopePosCorrection.Services
         {
             var correctedPosition = objectPosition.Angle + positionDelta;
             if (correctedPosition < 0) correctedPosition = 360 + correctedPosition;
+            if (correctedPosition > 360) correctedPosition = correctedPosition - 360;
             return AngleHMS.FromFloat(correctedPosition);
         }
 
         public static AngleHMS AddDeltaDEC(AngleHMS objectPosition, float positionDelta)
         {
             var correctedPosition = objectPosition.Angle + positionDelta;
+            if (correctedPosition < 0) correctedPosition = 360 + correctedPosition;
+            if (correctedPosition > 360) correctedPosition = correctedPosition - 360;
             return AngleHMS.FromFloat(correctedPosition);
         }
     }

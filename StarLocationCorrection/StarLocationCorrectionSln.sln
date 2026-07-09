@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32002.261
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarLocationCorrection", "StarLocationCorrection.csproj", "{46624F8C-244B-4119-BC1D-F58892331038}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelescopePosCorrection", "..\TelescopePosCorrection\TelescopePosCorrection.csproj", "{3612921D-E410-4425-A6CF-12458397CC37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "..\UnitTests\UnitTests.csproj", "{4DDE4507-2AF6-4C1B-902F-14B9C1FCB466}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{3612921D-E410-4425-A6CF-12458397CC37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3612921D-E410-4425-A6CF-12458397CC37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3612921D-E410-4425-A6CF-12458397CC37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DDE4507-2AF6-4C1B-902F-14B9C1FCB466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DDE4507-2AF6-4C1B-902F-14B9C1FCB466}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DDE4507-2AF6-4C1B-902F-14B9C1FCB466}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DDE4507-2AF6-4C1B-902F-14B9C1FCB466}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
