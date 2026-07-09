@@ -15,7 +15,7 @@ namespace TelescopePosCorrection.Data
 
             var tokens = angleHMS.Split(new char[] { ':' }, System.StringSplitOptions.RemoveEmptyEntries);
 
-            if (float.TryParse(tokens[0], out float h) && float.TryParse(tokens[1], out float m) && float.TryParse(tokens[2], out float s))
+            if (tokens.Length == 3 && float.TryParse(tokens[0], out float h) && float.TryParse(tokens[1], out float m) && float.TryParse(tokens[2], out float s))
             {
                 angle = new AngleHMS
                 {
